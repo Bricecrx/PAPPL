@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="fr.centrale.nantes_Neptune_war_1.0PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>fr.centrale.nantes.neptune.items.Student</class>
+    <class>fr.centrale.nantes.neptune.items.Studentskilllevelobserv</class>
+    <class>fr.centrale.nantes.neptune.items.Role</class>
+    <class>fr.centrale.nantes.neptune.items.Studentskilllevel</class>
+    <class>fr.centrale.nantes.neptune.items.Skill</class>
+    <class>fr.centrale.nantes.neptune.items.Componentlevel</class>
+    <class>fr.centrale.nantes.neptune.items.Academicgrade</class>
+    <class>fr.centrale.nantes.neptune.items.Connect</class>
+    <class>fr.centrale.nantes.neptune.items.Academicyear</class>
+    <class>fr.centrale.nantes.neptune.items.Course</class>
+    <class>fr.centrale.nantes.neptune.items.Level</class>
+    <class>fr.centrale.nantes.neptune.items.Acquisitiongrade</class>
+    <class>fr.centrale.nantes.neptune.items.Component</class>
+    <class>fr.centrale.nantes.neptune.items.Observatoinpoint</class>
+    <class>fr.centrale.nantes.neptune.items.Diplom</class>
+    <class>fr.centrale.nantes.neptune.items.Skillreferential</class>
+    <class>fr.centrale.nantes.neptune.items.Program</class>
+    <class>fr.centrale.nantes.neptune.items.Academicgradeinstance</class>
+    <class>fr.centrale.nantes.neptune.items.Observationtype</class>
+    <class>fr.centrale.nantes.neptune.items.Studentgroup</class>
+    <class>fr.centrale.nantes.neptune.items.Person</class>
+    <class>fr.centrale.nantes.neptune.items.Observationtypecondition</class>
+    <class>fr.centrale.nantes.neptune.items.Studentregistration</class>
+    <class>fr.centrale.nantes.neptune.items.Menu</class>
+    <class>fr.centrale.nantes.neptune.items.Faq</class>
+    <class>fr.centrale.nantes.neptune.items.Observedcondition</class>
+    <class>fr.centrale.nantes.neptune.items.Observer</class>
+    <class>fr.centrale.nantes.neptune.items.Action</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/neptune"/>
+      <property name="javax.persistence.jdbc.user" value="Brice_crx"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="Jeanchopper666"/>
+    </properties>
+  </persistence-unit>
+</persistence>

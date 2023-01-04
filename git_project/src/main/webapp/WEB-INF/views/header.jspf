@@ -1,0 +1,48 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="fr.centrale.nantes.neptune.controllers.tools.ToolsManager" %>
+<fmt:setBundle basename="fr.centrale.nantes.neptune.ressources.messages" var="ressourcesBundle" />
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#"><b>Skill Manager</b></a>
+        <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar10">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar10">
+            <ul class="navbar-nav ml-auto">
+                <c:forEach var="item" items="${menuMainList}"><c:if test="${(empty item.roleCollection) || ((! empty user) && (ToolsManager.userGetMenu(user, item)))}">
+                    <c:choose>
+                        <c:when test="${empty item.menuCollection}"><li class="nav-item">
+                            <a class="nav-link text-white" href="#" onClick="launchNav('${item.menuCode}')"><fmt:message key="menu.${item.menuTitle}" bundle="${ressourcesBundle}"/></a>
+                        </li></c:when>
+                        <c:otherwise><li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><fmt:message key="menu.${item.menuTitle}" bundle="${ressourcesBundle}"/></a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <c:forEach var="item2" items="${menuList}"><c:if test="${(item2.menuParentId.menuId == item.menuId) && (ToolsManager.userGetMenu(user, item2))}">
+                                            <a class="dropdown-item" href="#" onClick="launchNav('${item2.menuCode}')"><fmt:message key="menu.${item2.menuTitle}" bundle="${ressourcesBundle}"/></a>
+                                </c:if></c:forEach>
+                            </div>
+                        </li></c:otherwise>
+                    </c:choose>
+                </c:if></c:forEach>
+            </ul>
+            <c:choose>
+                <c:when test="${! empty user}"><a class="btn navbar-btn ml-md-2 btn-light text-dark" href="#" onClick="launchNav('disconnect')"><fmt:message key="button.disconnect" bundle="${ressourcesBundle}"/></a></c:when>
+                <c:otherwise><a class="btn navbar-btn ml-md-2 btn-light text-dark" href="#" onClick="launchNav('connect')"><fmt:message key="button.connect" bundle="${ressourcesBundle}"/></a></c:otherwise>
+            </c:choose>
+            <form action="navigate.do" method="POST" id="navLaunch">
+                <input type="hidden" name="navAction" id="navAction" value="" />
+                <input type="hidden" name="connexion" id="connexion" value="<c:if test="${! empty user}">${user.connectCode}</c:if>" />
+            </form>
+            <form action="action.do" method="POST" id="actionLaunch">
+                <input type="hidden" name="launchAction" id="launchAction" value="" />
+                <input type="hidden" name="dataAction" id="dataAction" value="" />
+                <input type="hidden" name="backAction" id="backAction" value="<c:if test="${! empty back}">${back}</c:if>" />
+                <input type="hidden" name="connexion" id="connexionAction" value="<c:if test="${! empty user}">${user.connectCode}</c:if>" />
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="py-1"><div class="container"></div></div>
