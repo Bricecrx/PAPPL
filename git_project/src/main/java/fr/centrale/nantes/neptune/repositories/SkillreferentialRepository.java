@@ -18,6 +18,8 @@ import org.springframework.data.repository.query.Param;
 public interface SkillreferentialRepository extends JpaRepository<Skillreferential, Integer>, SkillreferentialRepositoryCustom {
 
     public Collection<Skillreferential> findBySkillreferentialId(@Param("skillreferentialId")Integer skillreferentialId);
+    
+    public Collection<Skillreferential> findByDiplomId(@Param("diplomId")Diplom diplomId);
 
     public Collection<Skillreferential> findBySkillreferentialActive(@Param("skillreferentialActive")boolean skillreferentialActive);
 

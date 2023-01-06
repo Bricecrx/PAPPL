@@ -14,6 +14,7 @@
         <script src="js/main.js"></script>
         <script src="js/functions.js"></script>
         <script src="js/studentgroupfunctions.js"></script>
+        <script src="js/addstudentgroupfunctions.js"></script>
         <title>Neptune APP</title>
     </head>
 
@@ -93,7 +94,7 @@
                                 <tfoot>
                                     <tr id="lineAddStudentToGroup" class="table-primary">
                                         <td class="text-left"><input type="text" name="studentIdnumber" id="studentIdnumber" class="form-control, input-md-10" placeholder="Numéro étudiant" value="" size="20" /></td>
-                                        <td class="text-center"><button onClick=""><img src="img/plus.png" alt="add" class="localButton" /></button></td>
+                                        <td class="text-center"><button onClick="addStudentGroup(${group.studentgroupId})"><img src="img/plus.png" alt="add" class="localButton" /></button></td>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -30,5 +30,12 @@ public interface SkillreferentialRepositoryCustom {
      * @return Skillreferential
      */
     public Skillreferential getBySkillreferentialId(Integer skillreferentialId);
+    
+    /**
+     * Create new Skillreferential
+     * @param skillreferentialActive
+     * @return Skillreferential
+     */
+    public Skillreferential create(Diplom diplom, boolean skillreferentialActive);
 
 }

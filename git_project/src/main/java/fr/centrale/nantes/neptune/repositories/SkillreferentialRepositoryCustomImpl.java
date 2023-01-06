@@ -48,4 +48,18 @@ public class SkillreferentialRepositoryCustomImpl implements SkillreferentialRep
         }
         return null;
     }
+    
+    @Override
+    public Skillreferential create(Diplom diplom, boolean skillreferentialActive) {
+        Skillreferential item = new Skillreferential();
+        item.setDiplomId(diplom);
+        item.setSkillreferentialActive(skillreferentialActive);
+        repository.saveAndFlush(item);
+
+        Optional<Skillreferential> result = repository.findById(item.getSkillreferentialId());
+        if (result.isPresent()) {
+            return result.get();
+        }
+        return null;
+    }
 }

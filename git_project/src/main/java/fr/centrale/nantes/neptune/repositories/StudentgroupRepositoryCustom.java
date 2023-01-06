@@ -57,6 +57,14 @@ public interface StudentgroupRepositoryCustom {
     /**
      *
      * @param group
+     * @param sR
+     * @return
+     */
+    public Studentgroup update(Studentgroup group, Collection<Studentregistration> sR);
+    
+    /**
+     *
+     * @param group
      * @param studentgroupName
      * @param departAnneeAcademique
      * @param diplome

@@ -53,9 +53,7 @@ public class StudentgroupRepositoryCustomImpl implements StudentgroupRepositoryC
 
     @Override
     public Studentgroup update(Studentgroup group, String studentgroupName, Academicyear departAnneeAcademique, Diplom diplome) {
-        System.out.println("bbbbb");
         if ((group != null) && (studentgroupName != null)) {
-            System.out.println("ccccc");
             group.setStudentgroupName(studentgroupName);
             if (departAnneeAcademique != null) {
                 group.getProgramId().setAcademicyearId(departAnneeAcademique);
@@ -78,6 +76,14 @@ public class StudentgroupRepositoryCustomImpl implements StudentgroupRepositoryC
             if (prog != null) {
                 group.setProgramId(prog);
             }
+            repository.saveAndFlush(group);
+        }
+        return group;
+    }
+    
+    public Studentgroup update(Studentgroup group, Collection<Studentregistration> sR) {
+        if ((group != null) && (sR != null)) {
+            group.setStudentregistrationCollection(sR);
             repository.saveAndFlush(group);
         }
         return group;

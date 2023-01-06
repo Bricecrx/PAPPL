@@ -16,6 +16,22 @@ public interface StudentregistrationRepositoryCustom {
      * @return Studentregistration
      */
     public Studentregistration create();
+    
+    /**
+     * Create new Studentregistration
+     * @param student
+     * @param studentGroup
+     * @return Studentregistration
+     */
+    public Studentregistration create(Student student, Studentgroup studentGroup);
+    
+    /**
+     * Create new Studentregistration
+     * @param student
+     * @param studentGroup
+     * @return Studentregistration
+     */
+    public Studentregistration create(Student student, Studentgroup studentGroup, Skillreferential skillReferential);
 
     /**
      * Remove Studentregistration

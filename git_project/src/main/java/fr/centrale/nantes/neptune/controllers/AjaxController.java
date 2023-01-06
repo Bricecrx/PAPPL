@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import fr.centrale.nantes.neptune.items.*;
 import fr.centrale.nantes.neptune.repositories.*;
+import java.util.Collection;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,9 @@ public class AjaxController {
 
     @Autowired
     private CourseRepository courseRepository;
+    
+    @Autowired
+    private SkillreferentialRepository skillReferentialRepository;
 
     @RequestMapping(value = "ajax.do", method = RequestMethod.POST)
     public ModelAndView handlePost(HttpServletRequest request) {
@@ -106,6 +110,9 @@ public class AjaxController {
                 break;
             case "addGroup":
                 responseIsOk = addGroup(theResponse, request);
+                break;
+            case "addStudentGroup":
+                responseIsOk = addStudentGroup(theResponse, request);
                 break;
             case "removePerson":
                 responseIsOk = removePerson(theResponse, request);
@@ -233,6 +240,34 @@ public class AjaxController {
         
         theResponse.put("id", person.getPersonId());
         theResponse.put("id2", student.getStudentId());
+        
+        return true;
+    }
+    
+    private boolean addStudentGroup(JSONObject theResponse, HttpServletRequest request) {
+        String studentNumber = request.getParameter("studentNumber");
+        String groupId = request.getParameter("group");
+
+        Student student = studentRepository.findByStudentIdnumber(studentNumber).iterator().next();
+        Studentgroup group = groupRepository.getByStudentgroupId(Integer.parseInt(groupId));
+        Skillreferential skillReferential = new Skillreferential();
+        if (!skillReferentialRepository.findByDiplomId(group.getProgramId().getDiplomId()).isEmpty()) {
+            skillReferential = skillReferentialRepository.findByDiplomId(group.getProgramId().getDiplomId()).iterator().next();
+        }
+        else {
+            skillReferential = skillReferentialRepository.create(group.getProgramId().getDiplomId(), true);
+        }
+        Studentregistration sRegistration = studentregistrationRepository.create(student, group, skillReferential);
+        
+        //TODO: Add the new student registration to the group's student registrations collection
+        Collection<Studentregistration> temporaryRegistrationCollection = group.getStudentregistrationCollection();
+        temporaryRegistrationCollection.add(sRegistration);
+        groupRepository.update(group, temporaryRegistrationCollection);
+        
+        Studentgroup group2 = groupRepository.getByStudentgroupId(Integer.parseInt(groupId));
+        System.out.println(group2.getStudentregistrationCollection().size());
+        
+        theResponse.put("id", sRegistration.getStudentregistrationId());
         
         return true;
     }
