@@ -32,10 +32,16 @@
     <class>fr.centrale.nantes.neptune.items.Action</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+        <!--
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/neptune"/>
       <property name="javax.persistence.jdbc.user" value="Brice_crx"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.password" value="Jeanchopper666"/>
+              -->
+       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Neptune"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="Atmmdl27"/>    
     </properties>
   </persistence-unit>
 </persistence>

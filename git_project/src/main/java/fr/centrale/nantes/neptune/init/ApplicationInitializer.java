@@ -408,6 +408,12 @@ public class ApplicationInitializer implements ServletContextListener {
 
         item =createAction("editCourse");
         linkActionRole(item, roleAdmin);
+        
+        item =createAction("showSkills");
+        linkActionRole(item, roleAdmin);
+
+        item =createAction("editSkill");
+        linkActionRole(item, roleAdmin);
 
         transaction.commit();
     }

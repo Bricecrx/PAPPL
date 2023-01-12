@@ -57,6 +57,12 @@ public class AjaxController {
     
     @Autowired
     private SkillreferentialRepository skillReferentialRepository;
+    
+    @Autowired
+    private StudentskilllevelRepository studLevelRepository;
+    
+    @Autowired
+    private LevelRepository levelRepository;
 
     @RequestMapping(value = "ajax.do", method = RequestMethod.POST)
     public ModelAndView handlePost(HttpServletRequest request) {
@@ -125,6 +131,9 @@ public class AjaxController {
                 break;
             case "removeCourse":
                 responseIsOk = removeCourse(theResponse, request);
+                break;
+            case "addObservation":
+                responseIsOk = addObservation(theResponse, request);
                 break;
 
         }
@@ -342,5 +351,27 @@ public class AjaxController {
         } else {
             return false;
         }
+    }
+    
+     private boolean addObservation(JSONObject theResponse, HttpServletRequest request) {
+//        String personIdStr = request.getParameter("personId");
+//        String componentIdStr = request.getParameter("componentId");
+//        String newLevelIdStr = request.getParameter("newLevelId");
+//        
+//        int personId = Integer.parseInt(personIdStr);
+//        int componentId = Integer.parseInt(componentIdStr);
+//        int newLevelId = Integer.parseInt(newLevelIdStr);
+//        Level newLevel = levelRepository.findByLevelId(newLevelId).iterator().next();
+//        int studentId = studentRepository.findByPersonId(personId).getStudentId();
+//        int diplomId = studentregistrationRepository.findByStudentId(studentId).iterator().next().getDiplomId().getDiplomId();
+//        
+//
+//        Collection<Studentskilllevel> ssl = studLevelRepository.findByDiplomComponentAndStudentId(studentId, diplomId, componentId);
+//        
+//        if(ssl.isEmpty()){// && (ssl.iterator().next().getLevelId().getLevelId()<newLevelId)){
+//            //Studentskilllevel newSsl = studLevelRepository.create(studentId, diplomId, componentId, newLevel);
+//            //theResponse.put("id", newSsl.get);
+//        }
+        return true;
     }
 }

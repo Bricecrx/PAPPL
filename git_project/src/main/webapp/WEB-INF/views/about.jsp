@@ -29,7 +29,7 @@
                     <div class="col-md-12">
                         <p>Developped by Ecole Centrale Nantes</p>
                         <p>2022</p>
-                        <p>Gwennaëlle LE MAUF, Morgan MAGNIN, Jean-Yves MARTIN</p>
+                        <p>Gwennaëlle LE MAUF, Morgan MAGNIN, Jean-Yves MARTIN, Brice CONRAUX, Thomas CANAL</p>
                     </div>
                 </div>
             </div>

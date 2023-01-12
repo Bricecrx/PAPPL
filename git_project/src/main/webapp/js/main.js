@@ -82,6 +82,7 @@ function ajaxCall(action, data, applySuccess) {
             }
         },
         error: function (resultat, statut, erreur) {
+            console.log(resultat);
             console.log("error call " + action + " result = " + resultat + statut + erreur);
         }
     });

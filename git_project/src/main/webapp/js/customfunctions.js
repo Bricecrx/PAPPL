@@ -11,7 +11,6 @@ function addStudent() {
     data.personFirstname = document.getElementById("personFirstname").value;
     data.personLastname = document.getElementById("personLastname").value;
     data.personEmail = document.getElementById("personEmail").value;
-    data.personNumber = document.getElementById("personNumber").value;
     ajaxCall("addStudent", data, applySuccessAddStudent);
 }
 
@@ -34,8 +33,10 @@ function applySuccessAddStudent(result, data) {
         lineText = document.createTextNode(data.personEmail);
         lineTD.appendChild(lineText);
         
+        
         lineTD = columns[3];
-        lineText = document.createTextNode(data.personNumber);
+        alert(result.id2);
+        lineText = "0125415"; //document.createTextNode(result.id2);
         lineTD.appendChild(lineText);
     }
 

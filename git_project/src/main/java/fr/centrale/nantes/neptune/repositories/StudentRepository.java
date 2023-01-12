@@ -19,5 +19,10 @@ public interface StudentRepository extends JpaRepository<Student, Integer>, Stud
     public Collection<Student> findByStudentId(@Param("studentId")Integer studentId);
 
     public Collection<Student> findByStudentIdnumber(@Param("studentIdnumber")String studentIdnumber);
+    
+        
+    @Query(value = "SELECT * from student WHERE student.person_id=?1",
+        nativeQuery = true)
+    public Student findByPersonId(Integer personId);
 
 }

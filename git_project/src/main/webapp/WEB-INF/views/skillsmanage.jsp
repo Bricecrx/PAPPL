@@ -13,6 +13,7 @@
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/functions.js"></script>
+  <script src="js/functions_observer.js"></script>
   <title>Neptune APP</title>
 </head>
 
@@ -27,15 +28,47 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-            <fmt:message key="message.year" bundle="${ressourcesBundle}"/>
+            <fmt:message key="message.listcourses" bundle="${ressourcesBundle}"/>
         </div>
-        <div class="col-md-6">
-            <select name="annee">
-                <c:forEach var="item" items="${anneesList}" varStatus="count">
-                    <option value="${item.anneeuniversitaireId}" <c:if test="${item.anneeUniversitaireId == anneeCurrent.anneeUniversitaireId}">selected="selected"</c:if>>${anneeuniversitaireLibelle}</option>
+        <div class="col-md-2">
+            <select id="cours" name="cours">
+                <option value="*">*</option>
+                <c:forEach var="aCourse" items="${courseList}" varStatus="count">
+                    <option id="${aCourse.courseAbrev}" value="${aCourse.courseAbrev}">${aCourse.courseAbrev}</option>
                 </c:forEach>
             </select>
         </div>
+         <div>
+        <div class="col-md-10">
+            <table id="anneeList"  class="table table-striped table-md">
+                <thead>
+                    <tr>
+                        <th scope="col" class="table-md-2"><fmt:message key="message.lastname" bundle="${ressourcesBundle}"/></th>
+                        <th scope="col" class="table-md-9"><fmt:message key="message.firstname" bundle="${ressourcesBundle}"/></th>
+                        <th scope="col" class="table-md-9">Cours</th>
+                        <th scope="col" class="table-md-1"></th>
+                    </tr>
+                </thead>
+                <tbody id="listeEleves">
+                    <c:forEach var="aStudent" items="${courseStudentList}" varStatus="count">
+                        <%-- <c:if test="${aStudent[2]==(this).find('option:selected').attr('id')}"> </c:if> --%>
+                        <tr id="colonne">
+                            <td class="text-left">${aStudent[1]}</td>
+                            <td class="text-left">${aStudent[2]}
+                            <td class="text-left">
+                                <c:forEach begin="3" end="${aStudent.size()}" var="i" step="1">
+                                    ${aStudent[i]}      
+                                </c:forEach>
+                            </td>
+                            <td class="text-center">
+                                <button onClick="showSkills(${aStudent[0]})"><img src="img/edit.png" alt="Edit" class="localButton" /></button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+      </div>
       </div>
     </div>
   </div>

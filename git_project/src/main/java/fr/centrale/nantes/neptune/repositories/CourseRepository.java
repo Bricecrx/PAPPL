@@ -21,5 +21,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer>, Course
     public Collection<Course> findByCourseTitle(@Param("courseTitle")String courseTitle);
 
     public Collection<Course> findByCourseAbrev(@Param("courseAbrev")String courseAbrev);
+            
+    @Query(value = "SELECT * FROM course WHERE course.person_id = ?1", nativeQuery = true)
+    public Collection<Course> findByObserver(Integer observerId);
 
 }

@@ -35,4 +35,19 @@ public interface PersonRepository extends JpaRepository<Person, Integer>, Person
 
     @Query(value = "SELECT p.* FROM Person p NATURAL JOIN HasRole NATURAL JOIN Role r WHERE r.Role_Title=:roleTitle", nativeQuery = true)
     public Collection<Person> findByPersonRole(@Param("roleTitle")String roleTitle);
+    
+        
+    @Query(value = "SELECT \n" +
+                    "	p.person_id as person_id, p.person_lastname as person_lastname, p.person_firstname as person_firstname, course.course_abrev as course_abrev\n" +
+                    "FROM \n" +
+                    "	course NATURAL JOIN registercourse NATURAL JOIN \n" +
+                    "	studentregistration INNER JOIN student ON(student.student_id=studentregistration.student_id)\n" +
+                    "	INNER JOIN person p ON(student.person_id=p.person_id)\n" +
+                    "WHERE \n" +
+                    "	course.person_id=?1 " +
+                    "ORDER BY person_lastname ASC",
+            
+    nativeQuery = true)
+    public Collection<String[]> findByObserver(Integer observerId);
+    
 }

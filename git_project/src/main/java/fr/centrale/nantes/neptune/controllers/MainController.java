@@ -11,6 +11,8 @@ import fr.centrale.nantes.neptune.items.*;
 import fr.centrale.nantes.neptune.repositories.*;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -72,6 +74,9 @@ public class MainController {
     
     @Autowired 
     private StudentgroupRepository groupRepository; 
+    
+    @Autowired
+    private StudentskilllevelRepository studLevelRepository;
 
     /**
      * Handle request from menu
@@ -164,12 +169,37 @@ public class MainController {
                     // Acces granted
                     switch (actionNav) {
                         case "showskills":
-                            break;
                         case "skills":
+                            returned = showSkills(userConnexion, userConnexion.getPersonId());
                             break;
                         case "listobserv":
+                            returned = ToolsManager.getModel(menuRepository, "observ", userConnexion);
                             break;
                         case "observ":
+                            Collection<String[]> queryValues =  personRepository.findByObserver(userConnexion.getPersonId().getPersonId());
+                            ArrayList<ArrayList<String>> coursePersonList = new ArrayList<>();
+                            for(String[] q: queryValues){
+                                ArrayList<String> c = new ArrayList<>();
+                                String id;
+                                if(!coursePersonList.isEmpty()){
+                                    id = coursePersonList.get(coursePersonList.size()-1).get(0);
+                                    if(id.equalsIgnoreCase(q[0])){
+                                        coursePersonList.get(coursePersonList.size()-1).add(q[3]);
+                                    }
+                                    else{
+                                        c.addAll(Arrays.asList(q));
+                                        coursePersonList.add(c);
+                                    }
+                                } 
+                                else{
+                                    c.addAll(Arrays.asList(q));
+                                    coursePersonList.add(c);
+                                }
+                            }
+                            //List<String[]> courseStudentList;
+                            returned = ToolsManager.getModel(menuRepository, "skillsmanage", userConnexion);
+                            returned.addObject("courseList", courseRepository.findByObserver(userConnexion.getPersonId().getPersonId()));
+                            returned.addObject("courseStudentList", coursePersonList);
                             break;
                         case "users":
                             break;
@@ -243,6 +273,12 @@ public class MainController {
                             break;
                         case "editSelf":
                             returned = editSelf(userConnexion, dataValue);
+                            break;
+                        case "showSkills":
+                            returned = showSkills(userConnexion, dataValue);
+                            break;
+                        case "editSkill":
+                            returned = editSkill(userConnexion, dataValue);
                             break;
                     }
                 }
@@ -338,6 +374,60 @@ public class MainController {
         
         return success;
     }
+    
+     /* ------------------------------------------------------------------------------------------ */
+    private ModelAndView showSkills(Connect userConnexion, Person person) {
+        ModelAndView returned = null;
+        
+        if (person != null) {
+            int studentId = studentRepository.findByPersonId(person.getPersonId()).getStudentId();
+            
+            returned = ToolsManager.getModel(menuRepository, "skills", userConnexion);
+            returned.addObject("person", person);
+            returned.addObject("skill", skillRepository.findAll());
+            returned.addObject("component", componentRepository.findAll());
+            returned.addObject("level", 
+                                    studLevelRepository.findByStudentId(studentId));
+        }
+        
+        return returned;
+    }
+    
+    private ModelAndView showSkills(Connect userConnexion, String dataValue) {
+        int idPerson = ToolsManager.getIntFromString(dataValue);
+        Person person = personRepository.getByPersonId(idPerson);
+        return showSkills(userConnexion, person);
+    }
+    
+    /* ------------------------------------------------------------------------------------------ */
+    private ModelAndView editSkill(Connect userConnexion, String dataValue) {
+        ModelAndView returned = null;
+        
+        String ids[] = dataValue.split("\\s+");
+        if(ids.length==2){
+            String componentidStr = ids[0];
+            int componentId = Integer.parseInt(componentidStr);
+            String personIdStr = ids[1];
+            int personId = Integer.parseInt(personIdStr);
+
+            Person p = personRepository.getById(personId);
+            Component c = componentRepository.getById(componentId);
+
+            if(p!=null && c!=null){
+                returned = ToolsManager.getModel(menuRepository, "addskill", userConnexion);
+                returned.addObject("person",p);
+                returned.addObject("component",c);
+            }
+        }
+        if(ids.length==1){
+            returned = ToolsManager.getModel(menuRepository, "about", userConnexion);
+        }
+        
+        
+        
+        return returned;
+    }
+    
 
     /**
      *

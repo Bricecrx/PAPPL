@@ -49,6 +49,7 @@
                                     <!--TODO: Ajouter une personne et un étudiant associé dans la base de données-->
                                     <tr id="lineAddGroup" class="table-primary">
                                         <td class="text-left"><input type="text" name="personFirstname" id="groupName" class="form-control, input-md-10" placeholder="nom" value="" size="15" /></td>
+                                        <td class="text-left"><input type="text" name="groupName" id="groupName" class="form-control, input-md-10" placeholder="nom" value="" size="15" /></td>
                                         <td class="text-center"><button onClick="addGroup()"><img src="img/plus.png" alt="add" class="localButton" /></button></td>
                                     </tr>
                                 </tfoot>
